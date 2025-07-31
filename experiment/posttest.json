@@ -2,38 +2,157 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the truth value of (p ∨ q) when p = False and q = True?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "True",
+        "b": "False",
+        "c": "Cannot be determined",
+        "d": "Both True and False"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Correct! The OR operator (∨) is true when at least one of the operands is true. Since q is true, the entire expression (p ∨ q) evaluates to true, regardless of p being false.",
+        "b": "Incorrect. The OR operator is false only when both operands are false.",
+        "c": "Incorrect. With the given values of p and q, we can definitively determine the truth value.",
+        "d": "Incorrect. A logical expression has exactly one truth value for any given assignment."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "Which logical operator has the highest precedence in propositional logic?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "∧ (AND)",
+        "b": "∨ (OR)",
+        "c": "¬ (NOT)",
+        "d": "→ (IMPLIES)"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. AND has higher precedence than OR and IMPLIES, but not higher than NOT.",
+        "b": "Incorrect. OR has lower precedence than both NOT and AND.",
+        "c": "Correct! The negation operator (¬) has the highest precedence in propositional logic. It binds most tightly to its operand and is evaluated first, followed by ∧, then ∨, and finally →.",
+        "d": "Incorrect. IMPLIES has the lowest precedence among the common logical operators."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
+    },
+    {
+      "question": "In a truth table for three variables (p, q, r), how many rows represent assignments where exactly two variables are true?",
+      "answers": {
+        "a": "2 rows",
+        "b": "3 rows",
+        "c": "4 rows",
+        "d": "6 rows"
+      },
+      "explanations": {
+        "a": "Incorrect. There are more than 2 ways to choose exactly 2 variables out of 3 to be true.",
+        "b": "Correct! With three variables, there are exactly 3 ways to have exactly two variables true: (T,T,F), (T,F,T), and (F,T,T). This follows the combination formula C(3,2) = 3.",
+        "c": "Incorrect. Four would be the number of rows with exactly one variable true or exactly three variables true.",
+        "d": "Incorrect. Six exceeds the number of possible combinations."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the truth value of (p → q) when p = True and q = False?",
+      "answers": {
+        "a": "True",
+        "b": "False",
+        "c": "Cannot be determined",
+        "d": "Depends on other variables"
+      },
+      "explanations": {
+        "a": "Incorrect. This is the one case where an implication is false.",
+        "b": "Correct! An implication (p → q) is false only when the antecedent (p) is true and the consequent (q) is false. This represents a 'broken promise' - if p is true, then q should also be true for the implication to hold.",
+        "c": "Incorrect. With the given truth values, the result is definitively determined.",
+        "d": "Incorrect. The truth value of (p → q) depends only on the values of p and q."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which formula represents the contrapositive of (p → q)?",
+      "answers": {
+        "a": "q → p",
+        "b": "¬p → ¬q",
+        "c": "¬q → ¬p",
+        "d": "¬(p → q)"
+      },
+      "explanations": {
+        "a": "Incorrect. This is the converse of (p → q), not the contrapositive.",
+        "b": "Incorrect. This is the inverse of (p → q), not the contrapositive.",
+        "c": "Correct! The contrapositive of (p → q) is (¬q → ¬p). The contrapositive is logically equivalent to the original implication and is formed by negating both parts and switching their order.",
+        "d": "Incorrect. This is the negation of the entire implication, not the contrapositive."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "A formula that is always false regardless of truth assignments is called:",
+      "answers": {
+        "a": "Tautology",
+        "b": "Contingency",
+        "c": "Contradiction",
+        "d": "Satisfiable"
+      },
+      "explanations": {
+        "a": "Incorrect. A tautology is a formula that is always true.",
+        "b": "Incorrect. A contingency is a formula that is sometimes true and sometimes false.",
+        "c": "Correct! A contradiction (also called an unsatisfiable formula) is a formula that evaluates to false under every possible truth assignment. For example, (p ∧ ¬p) is always false regardless of the value of p.",
+        "d": "Incorrect. A satisfiable formula has at least one assignment that makes it true."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Consider the formula (p ∧ q ∧ r) ∨ (¬p ∧ ¬q ∧ ¬r). This formula is:",
+      "answers": {
+        "a": "Always true (tautology)",
+        "b": "Always false (contradiction)",
+        "c": "Sometimes true, sometimes false (contingency)",
+        "d": "Equivalent to (p ∨ q ∨ r)"
+      },
+      "explanations": {
+        "a": "Incorrect. The formula is not true for all assignments (e.g., when p=T, q=T, r=F).",
+        "b": "Incorrect. The formula is true when all variables are true or when all variables are false.",
+        "c": "Correct! This formula is true in exactly 2 out of 8 possible assignments: when (p,q,r) = (T,T,T) or when (p,q,r) = (F,F,F). For all other combinations, the formula evaluates to false. This makes it a contingency.",
+        "d": "Incorrect. These formulas have different truth tables and are not equivalent."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Using resolution, what can be derived from the clauses (p ∨ q) and (¬p ∨ r)?",
+      "answers": {
+        "a": "q ∨ r",
+        "b": "p ∨ r",
+        "c": "¬q ∨ r",
+        "d": "q ∧ r"
+      },
+      "explanations": {
+        "a": "Correct! Resolution works by finding complementary literals (p and ¬p) in two clauses and combining the remaining literals with OR. From (p ∨ q) and (¬p ∨ r), we eliminate p and ¬p to get (q ∨ r). This is a fundamental inference rule in propositional logic.",
+        "b": "Incorrect. We cannot derive (p ∨ r) using resolution from these clauses.",
+        "c": "Incorrect. This would require negating q, which is not justified by resolution.",
+        "d": "Incorrect. Resolution produces disjunctions (OR), not conjunctions (AND)."
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "A set of clauses is unsatisfiable if and only if:",
+      "answers": {
+        "a": "It contains at least one tautology",
+        "b": "It contains complementary unit clauses",
+        "c": "All clauses have the same length",
+        "d": "The empty clause can be derived through resolution"
+      },
+      "explanations": {
+        "a": "Incorrect. Tautologies don't make a set unsatisfiable; they're always satisfied.",
+        "b": "Incorrect. While complementary unit clauses (like p and ¬p) indicate unsatisfiability, this is just one specific case.",
+        "c": "Incorrect. Clause length has no bearing on satisfiability.",
+        "d": "Correct! By the completeness of resolution, a set of clauses is unsatisfiable if and only if the empty clause (□) can be derived through repeated application of the resolution rule. The empty clause represents a contradiction and can never be satisfied."
+      },
+      "correctAnswer": "d",
+      "difficulty": "advanced"
     }
   ]
 }
