@@ -104,7 +104,7 @@
       "difficulty": "intermediate"
     },
     {
-      "question": "Consider the formula ((p ∧ q) → r) ∧ (¬r ∧ p). What can we conclude about q?",
+      "question": "Consider the formula ((p ∧ q) → r) ∧ (¬r ∧ p). When this formula is satisfiable, what must be the value of q?",
       "answers": {
         "a": "q must be true",
         "b": "q must be false",
