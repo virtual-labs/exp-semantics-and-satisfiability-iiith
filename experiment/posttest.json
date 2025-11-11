@@ -19,20 +19,20 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Which logical operator has the highest precedence in propositional logic?",
+      "question": "Which formula is logically equivalent to ¬(p ∨ q)?",
       "answers": {
-        "a": "∧ (AND)",
-        "b": "∨ (OR)",
-        "c": "¬ (NOT)",
-        "d": "→ (IMPLIES)"
+        "a": "¬p ∧ ¬q",
+        "b": "¬p ∨ ¬q",
+        "c": "p ∧ q",
+        "d": "p ∨ ¬q"
       },
       "explanations": {
-        "a": "Incorrect. AND has higher precedence than OR and IMPLIES, but not higher than NOT.",
-        "b": "Incorrect. OR has lower precedence than both NOT and AND.",
-        "c": "Correct! The negation operator (¬) has the highest precedence in propositional logic. It binds most tightly to its operand and is evaluated first, followed by ∧, then ∨, and finally →.",
-        "d": "Incorrect. IMPLIES has the lowest precedence among the common logical operators."
+        "a": "Correct! This is De Morgan's Law: ¬(p ∨ q) ≡ (¬p ∧ ¬q). The negation of a disjunction becomes a conjunction of the negated components. You can verify this by constructing truth tables for both formulas.",
+        "b": "Incorrect. This represents 'not p OR not q', which is different from the negation of 'p OR q'.",
+        "c": "Incorrect. This is not equivalent to ¬(p ∨ q).",
+        "d": "Incorrect. This formula is not logically equivalent to ¬(p ∨ q)."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
@@ -121,37 +121,37 @@
       "difficulty": "advanced"
     },
     {
-      "question": "Using resolution, what can be derived from the clauses (p ∨ q) and (¬p ∨ r)?",
+      "question": "Which of the following formulas is unsatisfiable?",
       "answers": {
-        "a": "q ∨ r",
-        "b": "p ∨ r",
-        "c": "¬q ∨ r",
-        "d": "q ∧ r"
+        "a": "(p ∨ q) ∧ (¬p ∨ q)",
+        "b": "(p ∧ q) ∧ (¬p ∨ ¬q)",
+        "c": "(p → q) ∧ (q → r) ∧ r",
+        "d": "(p ∨ ¬q) ∧ (q ∨ ¬r)"
       },
       "explanations": {
-        "a": "Correct! Resolution works by finding complementary literals (p and ¬p) in two clauses and combining the remaining literals with OR. From (p ∨ q) and (¬p ∨ r), we eliminate p and ¬p to get (q ∨ r). This is a fundamental inference rule in propositional logic.",
-        "b": "Incorrect. We cannot derive (p ∨ r) using resolution from these clauses.",
-        "c": "Incorrect. This would require negating q, which is not justified by resolution.",
-        "d": "Incorrect. Resolution produces disjunctions (OR), not conjunctions (AND)."
+        "a": "Incorrect. This formula simplifies to q and is satisfiable when q = true.",
+        "b": "Correct! This formula is unsatisfiable. From (p ∧ q), both p and q must be true. But (¬p ∨ ¬q) requires at least one of them to be false. These two constraints are contradictory, so no truth assignment can satisfy both simultaneously.",
+        "c": "Incorrect. This formula is satisfiable when p = false, q = false, and r = true.",
+        "d": "Incorrect. This formula is satisfiable when p = true and q = true."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "advanced"
     },
     {
-      "question": "A set of clauses is unsatisfiable if and only if:",
+      "question": "Which of the following statements correctly describes the relationship between satisfiability and validity?",
       "answers": {
-        "a": "It contains at least one tautology",
-        "b": "It contains complementary unit clauses",
-        "c": "All clauses have the same length",
-        "d": "The empty clause can be derived through resolution"
+        "a": "Every valid formula is satisfiable, but not every satisfiable formula is valid",
+        "b": "Every satisfiable formula is valid, but not every valid formula is satisfiable",
+        "c": "A formula is valid if and only if it is satisfiable",
+        "d": "Satisfiable and valid formulas are completely unrelated concepts"
       },
       "explanations": {
-        "a": "Incorrect. Tautologies don't make a set unsatisfiable; they're always satisfied.",
-        "b": "Incorrect. While complementary unit clauses (like p and ¬p) indicate unsatisfiability, this is just one specific case.",
-        "c": "Incorrect. Clause length has no bearing on satisfiability.",
-        "d": "Correct! By the completeness of resolution, a set of clauses is unsatisfiable if and only if the empty clause (□) can be derived through repeated application of the resolution rule. The empty clause represents a contradiction and can never be satisfied."
+        "a": "Correct! A valid (tautology) formula is true under every truth assignment, which means it is definitely satisfiable (satisfied by all assignments). However, a satisfiable formula only needs to be true under at least one assignment—it could be false in other assignments, making it contingent rather than valid. For example, (p ∨ q) is satisfiable (true when p=T or q=T) but not valid (false when p=F and q=F).",
+        "b": "Incorrect. Many satisfiable formulas are not valid. For instance, (p ∧ q) is satisfiable but not valid since it's false when either p or q is false.",
+        "c": "Incorrect. These are different concepts. While all valid formulas are satisfiable, the converse is not true.",
+        "d": "Incorrect. Satisfiability and validity are closely related through the satisfiability hierarchy."
       },
-      "correctAnswer": "d",
+      "correctAnswer": "a",
       "difficulty": "advanced"
     }
   ]
