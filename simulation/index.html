@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Propositional Logic: Semantics and Satisfiability - Discrete Mathematics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="mobile-detection.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <div class="max-w-7xl mx-auto px-6 pb-16 space-y-12">
+
+    <!-- Formula Display Section -->
+    <section class="bg-white p-6 rounded-xl shadow-lg border">
+      <h3 class="font-semibold text-gray-800 mb-4 text-xl">Current Formula</h3>
+      <div class="bg-gray-50 p-4 rounded-lg border-2 border-dashed border-gray-300">
+        <p id="currentFormula" class="text-2xl font-mono text-center text-gray-800">
+          Click "Generate Formula" to start!
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-4">
+        <button onclick="generateNewFormula()" class="btn bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">
+          Generate Formula
+        </button>
+        <button onclick="clearAnswers()" class="btn bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold">
+          Clear Answers
+        </button>
+        <button onclick="showSolution()" class="btn bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold">
+          Show Solution
+        </button>
+      </div>
+    </section>
+
+    <!-- Truth Table Section -->
+    <section class="bg-white p-6 rounded-xl shadow-lg">
+      <h3 class="font-semibold text-gray-800 mb-4 text-xl">Truth Table</h3>
+      <div class="mb-4">
+        <div class="flex justify-between items-center text-sm text-gray-600">
+          <span id="progress">0/0 completed</span>
+          <span id="streakCount" class="font-bold text-pink-600">Streak: 0</span>
+        </div>
+      </div>
+      <div id="truthTableContainer" class="overflow-x-auto">
+        <!-- Table will be generated dynamically -->
+      </div>
+      <div id="feedback" class="mt-4 p-3 rounded-lg hidden"></div>
+      <div id="formulaAnalysis" class="mt-4">
+        <!-- Formula analysis will appear here after completion -->
+      </div>
+    </section>
+
+    <!-- Satisfiability Question Section -->
+    <section class="bg-blue-50 p-6 rounded-xl shadow-lg border border-blue-200">
+      <h3 class="font-semibold text-blue-800 mb-3 text-xl">Learning Objectives</h3>
+      <p class="text-gray-700 mb-4 text-lg">
+        Complete the truth table to understand satisfiability and validity of propositional formulas.
+      </p>
+      <div class="bg-white p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">Key Concepts:</h4>
+        <ul class="list-disc pl-6 space-y-1 text-gray-700">
+          <li><strong>Satisfiable:</strong> At least one row evaluates to True</li>
+          <li><strong>Unsatisfiable:</strong> All rows evaluate to False</li>
+          <li><strong>Valid (Tautology):</strong> All rows evaluate to True</li>
+          <li><strong>Contingency:</strong> Some rows True, some False</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Floating Info Button -->
+    <div class="floating-button primary" id="infoButton">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+      </svg>
+    </div>
+
+    <!-- Floating Settings Button -->
+    <div class="floating-button secondary" id="settingsButton">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a6.759 6.759 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+      </svg>
+    </div>
+    
+    <!-- Floating Info Panel -->
+    <div class="floating-panel" id="infoPanel">
+      <div class="floating-panel-header">
+        <h3 class="panel-title">Instructions</h3>
+        <div class="floating-panel-close" id="infoPanelClose">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </div>
+      </div>
+      <div class="floating-panel-content space-y-4">
+        <div class="bg-orange-50 p-3 rounded-lg">
+          <h3 class="font-semibold text-sm text-orange-800 mb-2">How to Use</h3>
+          <div class="text-xs space-y-1 text-gray-600">
+            <p>• Generate a random propositional logic formula</p>
+            <p>• Fill out the truth table by clicking on the empty cells</p>
+            <p>• Determine if the formula is satisfiable or unsatisfiable</p>
+            <p>• A formula is satisfiable if at least one row evaluates to True</p>
+          </div>
+        </div>
+        <div class="bg-indigo-50 p-3 rounded-lg">
+          <h3 class="font-semibold text-sm text-indigo-800 mb-2">Logical Operators</h3>
+          <div class="text-xs space-y-1 text-gray-600">
+            <p>• ∧ (AND): True only when both operands are True</p>
+            <p>• ∨ (OR): False only when both operands are False</p>
+            <p>• ¬ (NOT): Negates the truth value</p>
+            <p>• → (IMPLIES): False only when antecedent is True and consequent is False</p>
+          </div>
+        </div>
+        <div class="bg-green-50 p-3 rounded-lg">
+          <h3 class="font-semibold text-sm text-green-800 mb-2">Definitions</h3>
+          <div class="text-xs space-y-1 text-gray-600">
+            <p>• <strong>Satisfiable:</strong> At least one assignment makes the formula True</p>
+            <p>• <strong>Unsatisfiable:</strong> No assignment makes the formula True</p>
+            <p>• <strong>Valid:</strong> All assignments make the formula True</p>
+            <p>• <strong>Invalid:</strong> At least one assignment makes the formula False</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Settings Panel -->
+    <div class="floating-panel" id="settingsPanel">
+      <div class="floating-panel-header">
+        <h3 class="panel-title">Settings</h3>
+        <div class="floating-panel-close" id="settingsPanelClose">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </div>
+      </div>
+      <div class="floating-panel-content space-y-4">
+        <!-- Formula Complexity -->
+        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-lg border border-purple-200">
+          <h3 class="font-semibold text-purple-800 mb-3 text-sm">Formula Complexity</h3>
+          <div class="flex gap-2 flex-wrap">
+            <label class="flex items-center cursor-pointer transition hover:bg-purple-100 px-2 py-1 rounded">
+              <input type="radio" name="complexity" value="simple" checked onchange="changeComplexity('simple')" class="mr-2 accent-purple-600">
+              <span class="text-sm font-medium text-gray-700">Simple (2 variables)</span>
+            </label>
+            <label class="flex items-center cursor-pointer transition hover:bg-purple-100 px-2 py-1 rounded">
+              <input type="radio" name="complexity" value="medium" onchange="changeComplexity('medium')" class="mr-2 accent-purple-600">
+              <span class="text-sm font-medium text-gray-700">Medium (3 variables)</span>
+            </label>
+            <label class="flex items-center cursor-pointer transition hover:bg-purple-100 px-2 py-1 rounded">
+              <input type="radio" name="complexity" value="complex" onchange="changeComplexity('complex')" class="mr-2 accent-purple-600">
+              <span class="text-sm font-medium text-gray-700">Complex (4 variables)</span>
+            </label>
+          </div>
+        </div>
+        <!-- Streak Counter -->
+        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+          <h3 class="font-semibold text-indigo-800 mb-3 text-sm">Streak</h3>
+          <div class="flex items-center gap-2 text-lg">
+            <span id="settingsStreakCount" class="font-bold text-pink-600">0</span>
+            <span class="text-gray-700">correct in a row</span>
+          </div>
+          <button onclick="resetStreak()" class="btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3 rounded text-sm mt-3">
+            Reset Streak
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theory Section -->
+    <section class="grid md:grid-cols-2 gap-8">
+      <div class="card bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Satisfiability</h2>
+        <div class="space-y-3 text-sm">
+          <p class="text-gray-700">A propositional formula is:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li><strong>Satisfiable:</strong> If there exists at least one truth assignment that makes the formula true</li>
+            <li><strong>Unsatisfiable:</strong> If no truth assignment makes the formula true (contradiction)</li>
+            <li><strong>Valid (Tautology):</strong> If all truth assignments make the formula true</li>
+          </ul>
+          <div class="bg-gray-100 p-3 rounded mt-4">
+            <p class="font-medium text-gray-800 mb-2">Examples:</p>
+            <ul class="space-y-1 text-gray-700">
+              <li>• p ∨ ¬p is valid (always true)</li>
+              <li>• p ∧ ¬p is unsatisfiable (always false)</li>
+              <li>• p ∧ q is satisfiable (true when both p and q are true)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-semibold text-indigo-700 mb-3">Truth Tables</h2>
+        <div class="space-y-3 text-sm">
+          <p class="text-gray-700">Truth tables systematically list all possible truth value assignments:</p>
+          <div class="bg-gray-100 p-3 rounded">
+            <p class="font-medium text-gray-800 mb-2">Logical Operators:</p>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <strong>∧ (AND):</strong>
+                <table class="mt-1 text-xs border-collapse border border-gray-400">
+                  <tr><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">T</td></tr>
+                  <tr><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">F</td></tr>
+                  <tr><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">F</td></tr>
+                  <tr><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">F</td></tr>
+                </table>
+              </div>
+              <div>
+                <strong>∨ (OR):</strong>
+                <table class="mt-1 text-xs border-collapse border border-gray-400">
+                  <tr><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">T</td></tr>
+                  <tr><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">T</td></tr>
+                  <tr><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">T</td><td class="border border-gray-400 px-1">T</td></tr>
+                  <tr><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">F</td><td class="border border-gray-400 px-1">F</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="Satisfiable.js"></script>
+<script src="../assets/js/iframeResize.js"></script>
+        
+        </body>
+</html>
