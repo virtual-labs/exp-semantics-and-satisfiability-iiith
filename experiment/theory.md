@@ -1,4 +1,3 @@
-# Theory: Semantics and Satisfiability in Propositional Logic
 
 ## Introduction: The Meaning Behind the Symbols
 
