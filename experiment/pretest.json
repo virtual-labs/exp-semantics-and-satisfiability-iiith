@@ -2,38 +2,157 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the truth value of (p ∧ q) when p = True and q = False?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "True",
+        "b": "False",
+        "c": "Cannot be determined",
+        "d": "Both True and False"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. The AND operator (∧) requires both operands to be true for the result to be true.",
+        "b": "Correct! The AND operator (∧) is only true when both p and q are true. Since q is false, the entire expression (p ∧ q) evaluates to false.",
+        "c": "Incorrect. With the given values of p and q, we can definitively determine the truth value.",
+        "d": "Incorrect. A logical expression can only have one truth value at a time."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "Which of the following represents the negation of p?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "p ∧ q",
+        "b": "p ∨ q",
+        "c": "¬p",
+        "d": "p → q"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. This represents 'p AND q', which is a conjunction, not a negation.",
+        "b": "Incorrect. This represents 'p OR q', which is a disjunction, not a negation.",
+        "c": "Correct! The symbol ¬ represents the negation operator (NOT). ¬p means 'not p' and has the opposite truth value of p.",
+        "d": "Incorrect. This represents 'p implies q', which is an implication, not a negation."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
+    },
+    {
+      "question": "In a truth table for two variables (p and q), how many rows are needed?",
+      "answers": {
+        "a": "2 rows",
+        "b": "3 rows",
+        "c": "4 rows",
+        "d": "8 rows"
+      },
+      "explanations": {
+        "a": "Incorrect. This would only account for the cases where both variables have the same value.",
+        "b": "Incorrect. Three rows cannot represent all possible combinations of two binary variables.",
+        "c": "Correct! For n variables, we need 2^n rows in a truth table. With 2 variables (p and q), we need 2^2 = 4 rows to represent all combinations: (T,T), (T,F), (F,T), and (F,F).",
+        "d": "Incorrect. Eight rows would be needed for three variables (2^3 = 8)."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the truth value of (p → q) when p = False and q = True?",
+      "answers": {
+        "a": "True",
+        "b": "False",
+        "c": "Cannot be determined",
+        "d": "Depends on the context"
+      },
+      "explanations": {
+        "a": "Correct! An implication (p → q) is false only when the antecedent (p) is true and the consequent (q) is false. In all other cases, including when p is false, the implication is true. This follows the principle 'false implies anything'.",
+        "b": "Incorrect. The implication is only false when p is true and q is false.",
+        "c": "Incorrect. With the given truth values, we can determine the result of the implication.",
+        "d": "Incorrect. Logic operations have definite truth values regardless of context."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which formula is logically equivalent to ¬(p ∧ q)?",
+      "answers": {
+        "a": "¬p ∧ ¬q",
+        "b": "¬p ∨ ¬q",
+        "c": "p ∨ q",
+        "d": "p ∧ ¬q"
+      },
+      "explanations": {
+        "a": "Incorrect. This represents 'not p AND not q', which is different from the negation of 'p AND q'.",
+        "b": "Correct! This is De Morgan's Law: ¬(p ∧ q) ≡ (¬p ∨ ¬q). The negation of a conjunction becomes a disjunction of the negated components.",
+        "c": "Incorrect. This doesn't involve any negations and is not equivalent to ¬(p ∧ q).",
+        "d": "Incorrect. This formula is not logically equivalent to ¬(p ∧ q)."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "A formula is called 'satisfiable' when:",
+      "answers": {
+        "a": "It is always true",
+        "b": "It is always false",
+        "c": "There exists at least one assignment that makes it true",
+        "d": "It contains exactly two variables"
+      },
+      "explanations": {
+        "a": "Incorrect. A formula that is always true is called a 'tautology' or 'valid formula', not just satisfiable.",
+        "b": "Incorrect. A formula that is always false is called 'unsatisfiable' or a 'contradiction'.",
+        "c": "Correct! A formula is satisfiable if there exists at least one truth assignment to its variables that makes the formula evaluate to true. This is the fundamental definition of satisfiability in propositional logic.",
+        "d": "Incorrect. The number of variables has no bearing on whether a formula is satisfiable."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Consider the formula ((p ∧ q) → r) ∧ (¬r ∧ p). When this formula is satisfiable, what must be the value of q?",
+      "answers": {
+        "a": "q must be true",
+        "b": "q must be false",
+        "c": "q can be either true or false",
+        "d": "The formula is unsatisfiable"
+      },
+      "explanations": {
+        "a": "Incorrect. If q were true, combined with p being true (from ¬r ∧ p), then (p ∧ q) would be true, making (p ∧ q) → r require r to be true. But we know r is false from ¬r ∧ p.",
+        "b": "Correct! From ¬r ∧ p, we know r is false and p is true. For the formula to be satisfiable, (p ∧ q) → r must be true. Since r is false, (p ∧ q) must be false. Since p is true, q must be false to make (p ∧ q) false.",
+        "c": "Incorrect. The constraints force q to have a specific value.",
+        "d": "Incorrect. The formula is satisfiable when p = true, q = false, and r = false."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "How many different truth assignments satisfy the formula (p ∨ q) ∧ (¬p ∨ r) ∧ (¬q ∨ ¬r)?",
+      "answers": {
+        "a": "2 assignments",
+        "b": "3 assignments",
+        "c": "4 assignments",
+        "d": "5 assignments"
+      },
+      "explanations": {
+        "a": "Correct! Let's analyze systematically: We need (p ∨ q) = T, (¬p ∨ r) = T, and (¬q ∨ ¬r) = T. Testing all 8 possible assignments: (T,T,T) fails the third clause, (T,T,F) satisfies all, (T,F,T) fails the third clause, (T,F,F) satisfies all, (F,T,T) fails the third clause, (F,T,F) fails the second clause, (F,F,T) fails the first clause, (F,F,F) fails the first clause. Only 2 assignments work: (T,T,F) and (T,F,F).",
+        "b": "Incorrect. Systematic checking shows only 2 assignments satisfy all three clauses.",
+        "c": "Incorrect. Not all combinations of variables satisfy the given constraints.",
+        "d": "Incorrect. There are only 8 total possible assignments for 3 variables, and most don't satisfy all clauses."
+      },
+      "correctAnswer": "a",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Which of the following best describes the relationship between validity and satisfiability?",
+      "answers": {
+        "a": "All valid formulas are unsatisfiable",
+        "b": "All satisfiable formulas are valid",
+        "c": "A formula is valid if and only if its negation is unsatisfiable",
+        "d": "Validity and satisfiability are unrelated concepts"
+      },
+      "explanations": {
+        "a": "Incorrect. Valid formulas are always true, which means they are satisfiable (in fact, satisfied by every assignment).",
+        "b": "Incorrect. A formula can be satisfiable (true for some assignments) without being valid (true for all assignments).",
+        "c": "Correct! This is a fundamental theorem in logic. A formula φ is valid (always true) if and only if ¬φ is unsatisfiable (never true). This relationship connects the concepts of validity and satisfiability through negation.",
+        "d": "Incorrect. Validity and satisfiability are closely related concepts in propositional logic."
+      },
+      "correctAnswer": "c",
+      "difficulty": "advanced"
     }
   ]
 }
